@@ -7,4 +7,7 @@ add_executable(CCodeSnippets main.c
         Filehandling/writeInFile.c
         Filehandling/writeInFile.h
         Filehandling/readFromFile.c
-        Filehandling/readFromFile.h)
+        Filehandling/readFromFile.h
+        stringHelper.c
+        stringHelper.h
+)

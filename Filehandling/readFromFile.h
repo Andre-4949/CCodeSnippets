@@ -6,4 +6,7 @@
 #define CCODESNIPPETS_READFROMFILE_H
 
 #endif //CCODESNIPPETS_READFROMFILE_H
-char* readFile(char* filename);
+
+char *readFile(char *filename);
+
+char *readLine(char *filename, int linecount);

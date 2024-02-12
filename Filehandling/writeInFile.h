@@ -6,3 +6,7 @@
 #define CCODESNIPPETS_WRITEINFILE_H
 
 #endif //CCODESNIPPETS_WRITEINFILE_H
+
+char *writeWholeFile(char *filename, char *input);
+
+char *addLineToFile(char *filename, char *input);

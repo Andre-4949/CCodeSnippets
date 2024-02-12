@@ -10,14 +10,14 @@
 #include "inttypes.h"
 #include "string.h"
 
-char* writeWholeFile(char* filename, char* input){
+char *writeWholeFile(char *filename, char *input) {
     FILE *file1 = fopen(filename, "w+");
     fprintf(file1, input);
     fflush(file1);
     fclose(file1);
 }
 
-char* addLineToFile(char* filename, char* input){
+char *addLineToFile(char *filename, char *input) {
     FILE *file1 = fopen(filename, "a");
     fprintf(file1, input);
 //    fprintf(file1, "\n");

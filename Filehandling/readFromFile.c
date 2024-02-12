@@ -6,45 +6,48 @@
 
 #include "stdlib.h"
 #include "stdio.h"
-#include "memory.h"
-#include "inttypes.h"
 #include "string.h"
+#include "../stringHelper.h"
 
-void switchCases(char *in);
-
-char* readFile(char* filename){
-    FILE *file1 = fopen(filename, "r+");
-    fseek(file1, 0, SEEK_SET); //file cursor auf index 0
-    long lSize = ftell(file1);
-    fseek(file1, 0, SEEK_SET);
+char *readFile(char *filename) {
+    FILE *file;
+    errno_t err = fopen_s(&file, filename, "r");
+    if (err) {
+        printf("%s", strerror(err));
+        exit(0);
+    }
+    fseek(file, 0, SEEK_END);
+    long lSize = ftell(file);
+    fseek(file, 0, SEEK_SET);
     char *readBuffer = calloc(lSize + 1, 1);
 
     char c;
     int index = 0;
     while (1) {
-        char s[100];
-        fscanf_s(file1, "%[^\n]*", &s);
-        printf("%s", s);
-        fclose(file1);
-        c = fgetc(file1);
+        c = fgetc(file);
         if (c == EOF) {
             break;
         }
         readBuffer[index++] = c;
     }
-    fclose(file1);
+    fclose(file);
     return readBuffer;
 }
 
-char* readLine(char* filename, int linecount){
-    FILE *file1 = fopen(filename, "r+");
+char *readLine(char *filename, int linecount) {
+    FILE *file1 = fopen(filename, "r");
     fseek(file1, 0, SEEK_SET); //file cursor auf index 0
     long lSize = ftell(file1);
     fseek(file1, 0, SEEK_SET);
     char *content = calloc(lSize + 1, 1);
-
-    fscanf_s(file1, "%[^\n]*", &content);
-    printf("%s", content);
     fclose(file1);
+    char *contentFull = readFile(filename);
+    do {
+        sscanf(contentFull, "%[^\n]*", content);
+        contentFull += strlen(content) + 1;
+        linecount--;
+    } while (linecount > 0);
+//    free(tmp);
     return content;
+
 }
